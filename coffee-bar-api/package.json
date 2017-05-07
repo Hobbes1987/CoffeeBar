@@ -1,0 +1,15 @@
+{
+  "name": "coffee-bar-api",
+  "description": "Coffee Bar API",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.26",
+    "signalrjs": "^0.2.2"
+  },
+  "scripts": {
+    "debug": "node server.js"
+  }
+}
