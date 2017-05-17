@@ -1,0 +1,4 @@
+// start mongo db
+cd /usr/local/mongodb
+./bin/mongodb
+

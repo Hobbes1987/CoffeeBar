@@ -19,6 +19,15 @@ db.open(function(err, db) {
     }
 });
 
+exports.findPendingOrders = function(req, res) {
+    db.collection('orders', function(err, collection) {
+        //pending, preparing, ready
+        collection.find({'Status': { $in: [ 0,1,2] }}).toArray(function(err, item) {
+            res.send(item);
+        });
+    });
+};
+
 exports.findById = function(req, res) {
     var id = req.params.id;
     console.log('Retrieving order: ' + id);
@@ -57,6 +66,12 @@ exports.update = function(req, res) {
     var order = req.body;
     console.log('Updating order: ' + id);
     console.log(JSON.stringify(order));
+    
+    if ( order._id && ( typeof(order._id) === 'string' ) ) {
+        console.log('Fixing id');
+        order._id = mongo.ObjectID.createFromHexString(order._id);
+    }
+
     db.collection('orders', function(err, collection) {
         collection.update({'_id':new mongo.ObjectID(id)}, order, {safe:true}, function(err, result) {
             if (err) {
@@ -75,6 +90,19 @@ exports.delete = function(req, res) {
     console.log('Deleting order: ' + id);
     db.collection('orders', function(err, collection) {
         collection.remove({'_id':new mongo.ObjectID(id)}, {safe:true}, function(err, result) {
+            if (err) {
+                res.send({'error':'An error has occurred - ' + err});
+            } else {
+                console.log('' + result + ' document(s) deleted');
+                res.send(req.body);
+            }
+        });
+    });
+}
+
+exports.deleteAll = function(req, res) {
+    db.collection('orders', function(err, collection) {
+        collection.remove({}, function(err, result) {
             if (err) {
                 res.send({'error':'An error has occurred - ' + err});
             } else {

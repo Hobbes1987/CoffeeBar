@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">{{order.CustomerName}}</div>
+  <div class="panel-body">
+    <p>{{order.Status | statusName}}</p>
+  </div>
+
+  <!-- List group -->
+  <ul class="list-group">
+    <li *ngFor="let product of order.Products " class="list-group-item">
+      <span class="badge">{{product.Qty}}</span>
+      {{product.Name}}</li>
+  </ul>
+</div>

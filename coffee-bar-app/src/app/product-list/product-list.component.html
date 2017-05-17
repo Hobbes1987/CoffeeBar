@@ -1,0 +1,45 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><h1>Bestelling</h1></div>
+  <div class="panel-body">
+    <div *ngIf="order == null" id="btnNew" class="btn btn-success btn-lg btn-block" (click)="startNewOrder()">Nieuw</div>
+    <div *ngIf="order != null" class="form-group form-group-lg">
+      <label for="customer">Klant naam</label>
+      <input [(ngModel)]="order.CustomerName" type="text" class="form-control" id="customer" placeholder="naam">
+    </div>
+  </div>
+<table class="table" *ngIf="order != null">
+  <tr *ngFor="let product of order.Products">
+    <td>{{product.Name}}</td>
+    <td>{{product.Price | currency:'EUR':true:'1.2-2'}}</td>
+    <td>
+      <div class="btn btn-default btn-lg" (click)="subtractProduct(product)">-</div>        
+      <div class="btn btn-default btn-lg" (click)="addProduct(product)">+</div>
+    </td>
+    <td class="qty" align="right"><span *ngIf="product.Qty > 0">{{product.Qty}}</span></td>
+  </tr>
+  <tr>
+    <td colspan="4" align="right" class="total"><strong>{{totalPrice() | currency:'EUR':true:'1.2-2'}}</strong></td>
+  </tr>
+</table>
+<div class="panel-footer" *ngIf="order != null">
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="btn btn-danger btn-lg btn-block" (click)="cancelOrder()">Annuleren</div>
+    </div>
+    <div class="col-xs-6">
+      <div class="btn btn-success btn-lg btn-block" (click)="confirmOrder()">Bestelling plaatsen</div>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let order of orders" (click)="selectOrder(order);">
+  {{order.Status | statusName}}
+  {{order._id}}
+</div>
+</div>
+
+<div class="row">
+  <div class="col-xs-3 col-lg-5">a</div>
+  <div class="col-xs-6 col-lg-2">b</div>
+  <div class="col-xs-3 col-lg-5">c</div>
+</div>
