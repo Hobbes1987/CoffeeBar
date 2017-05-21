@@ -11,7 +11,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ApiService {
 
-  rootUrl:string = "../../api/";
+  rootUrl:string = "http://localhost:3000/api/";
+  //rootUrl:string = "../../api/";
 
   GetProducts() : Observable<Product[]> {
       return this.http.get(this.rootUrl + "products")

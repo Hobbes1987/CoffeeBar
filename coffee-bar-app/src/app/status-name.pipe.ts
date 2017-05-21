@@ -15,6 +15,8 @@ export class StatusNamePipe implements PipeTransform {
       return "Bestelling gereed";
     else if(value == Status.Delivered)
       return "Bestelling is afgehaald";  
+    else if(value == Status.Cancelled)
+      return "Geannuleerd";  
     else
       return "onbekende status";
   }

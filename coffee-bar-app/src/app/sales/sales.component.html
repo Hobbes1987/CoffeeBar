@@ -1,0 +1,7 @@
+<div>
+  <div *ngFor="let order of orders">
+    <div>{{order.CustomerName}}</div>
+    <div>{{totalPrice(order)| currency:'EUR':true:'1.2-2'}}</div>
+    <div>{{order.Status | statusName}}</div>
+  </div>
+</div>

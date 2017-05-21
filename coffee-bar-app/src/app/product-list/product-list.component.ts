@@ -1,3 +1,4 @@
+import { OrderService } from './../order.service';
 import { getTestBed } from '@angular/core/testing';
 import { ApiService } from './../api.service';
 import { Order, Status } from '../objects/order';
@@ -14,7 +15,7 @@ export class ProductListComponent implements OnInit {
   public order:Order; 
   public orders:Order[]; 
 
-  constructor(private api:ApiService) {
+  constructor(private api:ApiService, private orderService:OrderService) {
 
   }
 
@@ -91,14 +92,7 @@ export class ProductListComponent implements OnInit {
 
   // sum the price of all ordered products
   totalPrice():Number {
-    if(this.order.Products == null)
-      return 0;
-
-    var total = 0;
-    for( let product of this.order.Products) {
-      total = total + (product.Qty * product.Price);
-    }
-    return total;
+    return this.orderService.TotalSalesPrice(this.order);
   }
 
   ngOnInit() {}
