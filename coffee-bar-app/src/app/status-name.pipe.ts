@@ -8,13 +8,13 @@ export class StatusNamePipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
     if(value == Status.Pending)
-      return "In de wachtrij";
+      return "Bestelling nog in de wachtrij";
     else if (value == Status.Preparing)
-      return "Wordt klaargemaakt";
+      return "Bestelling wordt klaargemaakt";
     else if(value == Status.Ready)
       return "Bestelling gereed";
     else if(value == Status.Delivered)
-      return "Afgehaald";  
+      return "Bestelling is afgehaald";  
     else
       return "onbekende status";
   }

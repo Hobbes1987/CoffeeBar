@@ -55,8 +55,10 @@ exports.add = function(req, res) {
 exports.update = function(req, res) {
     var id = req.params.id;
     var product = req.body;
-    console.log('Updating product: ' + id);
-    console.log(JSON.stringify(product));
+    if ( product._id && ( typeof(product._id) === 'string' ) ) {
+        console.log('Fixing id');
+        product._id = mongo.ObjectID.createFromHexString(product._id);
+    }
     db.collection('products', function(err, collection) {
         collection.update({'_id':new mongo.ObjectID(id)}, product, {safe:true}, function(err, result) {
             if (err) {
@@ -72,7 +74,11 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
     var id = req.params.id;
-    console.log('Deleting product: ' + id);
+    var product = req.body;
+    if ( product._id && ( typeof(product._id) === 'string' ) ) {
+        console.log('Fixing id');
+        product._id = mongo.ObjectID.createFromHexString(product._id);
+    }
     db.collection('products', function(err, collection) {
         collection.remove({'_id':new mongo.ObjectID(id)}, {safe:true}, function(err, result) {
             if (err) {

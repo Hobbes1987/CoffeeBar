@@ -1,0 +1,12 @@
+.postit{
+    width: 20%;
+    height: 300px;
+    position: absolute;
+    left:100%;
+    top:50%;
+    -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  padding:5px;
+}

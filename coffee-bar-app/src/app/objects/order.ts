@@ -5,8 +5,11 @@ export class Order{
     public CustomerName:string;
     public Products:Array<Product>;
     public OrderDate:Date;
-    public Deleted:Boolean;
     public Status:Status;
+    public Row:number;
+    public Column:number;
+    public Delivery:boolean;
+    public Note:string;
 }
 
 export enum Status{
@@ -14,4 +17,5 @@ export enum Status{
     Preparing = 1,
     Ready = 2,
     Delivered = 3,
+    Cancelled = 4,
 }

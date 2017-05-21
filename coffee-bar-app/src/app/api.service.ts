@@ -11,7 +11,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ApiService {
 
-  rootUrl:string = "http://localhost:3000/";
+  rootUrl:string = "http://192.168.178.167:3000/";
 
   GetProducts() : Observable<Product[]> {
       return this.http.get(this.rootUrl + "products")
@@ -38,6 +38,19 @@ export class ApiService {
 
   UpdateOrder(order:Order) : Observable<any> {
       return this.http.post(this.rootUrl + "order/"+order._id,order)
+                      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  AddProduct(product:Product) : Observable<any> {
+      return this.http.post(this.rootUrl + "product",product)
+                      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+   UpdateProduct(product:Product) : Observable<any> {
+      return this.http.post(this.rootUrl + "product/"+product._id,product)
+                      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+  DeleteProduct(product:Product) : Observable<any> {
+      return this.http.post(this.rootUrl + "product/delete/"+product._id,product)
                       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
      

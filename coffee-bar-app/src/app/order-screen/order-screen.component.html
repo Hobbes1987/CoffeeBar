@@ -1,15 +1,4 @@
-<div class="panel panel-default">
 
-<div class="panel-heading">
-  kopje
-</div>
-<div class="panel-body">
-
-<div class="row">
-  <div *ngFor="let ord of orders" class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-    <order [order]="ord"></order>
+  <div *ngFor="let ord of orders" class="postit" [style.margin-left]="ord.Status == 0 ? '-20%' : '0%'" [style.left]="(ord.Column*20) + '%'" [style.top]="(ord.Row*50) + '%'">
+    <order [order]="ord" (orderRemoved)="removeOrder($event)" (orderStarted)="orderStarted($event)" ></order>
   </div>
-</div>
-
-</div>
-</div>

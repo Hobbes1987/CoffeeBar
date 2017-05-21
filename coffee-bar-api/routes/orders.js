@@ -64,9 +64,6 @@ exports.add = function(req, res) {
 exports.update = function(req, res) {
     var id = req.params.id;
     var order = req.body;
-    console.log('Updating order: ' + id);
-    console.log(JSON.stringify(order));
-    
     if ( order._id && ( typeof(order._id) === 'string' ) ) {
         console.log('Fixing id');
         order._id = mongo.ObjectID.createFromHexString(order._id);

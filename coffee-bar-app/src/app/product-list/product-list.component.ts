@@ -15,8 +15,7 @@ export class ProductListComponent implements OnInit {
   public orders:Order[]; 
 
   constructor(private api:ApiService) {
-    //temp:
-    this.getOrders();
+
   }
 
   // New order, button is pressed
@@ -42,7 +41,13 @@ export class ProductListComponent implements OnInit {
   }
 
   // Ordering is finished, button is pressed
-  confirmOrder():void{
+  confirmOrder(direct:boolean):void{
+
+    if(direct)
+      if(!confirm('Heb je de bestelling direct meegegeven en hoeft verder niets worden klaargemaakt?'))
+        return;
+      else
+        this.order.Status = Status.Delivered;
 
     // remove all the products that have a quantity of zero
     for(var i = this.order.Products.length - 1; i >= 0; i--) {
@@ -82,16 +87,6 @@ export class ProductListComponent implements OnInit {
     if(product.Qty > 0){
       product.Qty = product.Qty-1;
     }
-  }
-
-  // temp, doesn't belong here
-  getOrders():void{
-    this.api.GetOrders().subscribe((result) => {
-      this.orders = result;
-    })
-  }
-  selectOrder(order:Order):void{
-    this.order = order;
   }
 
   // sum the price of all ordered products

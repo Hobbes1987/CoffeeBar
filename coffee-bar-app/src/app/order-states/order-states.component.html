@@ -1,0 +1,7 @@
+<div>
+  <div class="alert" *ngFor="let order of orders" [style.text-align]="order.Status == 2 ? 'right' : 'left'"  [class.alert-default]="order.Status == 0" [class.alert-info]="order.Status == 1" [class.alert-success]="order.Status == 2">
+    {{order.CustomerName}}
+    <span>{{order.Status | statusName}}</span>
+    <span class="delivery" *ngIf="order.Delivery">( Bezorging )</span>
+    </div>
+  </div>

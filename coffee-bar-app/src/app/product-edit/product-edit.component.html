@@ -1,0 +1,18 @@
+<table class="table">
+  <tr>
+    <th>Productnaam</th>
+    <th>Verkoopprijs</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let product of products">
+    <td><input class="form-control" type="text" [(ngModel)]="product.Name"/></td>
+    <td><input class="form-control" type="text" [(ngModel)]="product.Price"/></td>
+    <td align="left">
+      <div class="btn btn-primary" (click)="save(product)">Opslaan</div>        
+      <div class="btn btn-danger" (click)="delete(product)">Verwijderen</div>        
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" align="left"><div class="btn btn-success" (click)="add()">Toevoegen+</div></td>
+  </tr>
+</table>

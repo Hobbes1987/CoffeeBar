@@ -1,5 +1,38 @@
 .badge {
     background-color: white;
     color: black;
-    font-weight: normal;
+}
+
+.panel-success .panel-footer, .panel-success .note{
+    background-color: #dff0d8;
+}
+
+.panel-info .panel-footer, .panel-info .note{
+    background-color: #d9edf7;
+}
+.btn-close{
+float: right;
+}
+
+.note{
+    font-style: italic;
+    padding:4px;
+    padding-left:12px;
+}
+
+.alert{
+    text-align: center;
+    margin:12px;
+}
+
+.delivery{
+    font-style: italic;
+    font-size: .9em;
+}
+
+.list-group-item{
+    padding:0;
+    margin:0;
+    padding-left: 12px;
+    font-size:1.1em;
 }
