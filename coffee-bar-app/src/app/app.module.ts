@@ -14,6 +14,7 @@ import { OrderComponent } from './order/order.component';
 import { OrderStatesComponent } from './order-states/order-states.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { SalesComponent } from './sales/sales.component';
+import { GroupByPipe } from './group-by.pipe';
 
 const appRoutes: Routes = [
   { path: 'orders', component: OrderScreenComponent },
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
     OrderComponent,
     OrderStatesComponent,
     ProductEditComponent,
-    SalesComponent
+    SalesComponent,
+    GroupByPipe
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

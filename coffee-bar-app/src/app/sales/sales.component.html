@@ -1,7 +1,11 @@
-<div>
-  <div *ngFor="let order of orders">
-    <div>{{order.CustomerName}}</div>
-    <div>{{totalPrice(order)| currency:'EUR':true:'1.2-2'}}</div>
-    <div>{{order.Status | statusName}}</div>
-  </div>
+<div class="panel panel-default" *ngIf="orders">
+<div class="panel-heading"><h1>Verkoop</h1></div>
+<div class="panel-body"><h2>Totaal: {{sumAll()| currency:'EUR':true:'1.2-2'}}</h2></div>
+  <table class="table">
+    <tr *ngFor="let item of products | groupBy:'Name'">
+      <td>{{ item.key }}</td>
+      <td>{{totalQty(item.value)}}x</td>
+      <td>{{totalPricePerProduct(item.value)| currency:'EUR':true:'1.2-2'}}</td>
+    </tr>
+  </table>
 </div>
