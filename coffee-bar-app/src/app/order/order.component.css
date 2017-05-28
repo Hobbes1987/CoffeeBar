@@ -3,6 +3,9 @@
     color: black;
 }
 
+.panel-heading{
+    font-size: 2em;
+}
 .panel-success .panel-footer, .panel-success .note{
     background-color: #dff0d8;
 }
@@ -12,6 +15,7 @@
 }
 .btn-close{
 float: right;
+font-size: .5em;
 }
 
 .note{
@@ -34,5 +38,21 @@ float: right;
     padding:0;
     margin:0;
     padding-left: 12px;
-    font-size:1.1em;
+    font-size:1.3em;
+}
+
+.product{
+    display:flex;
+    flex-direction: row;
+    min-height: 40px;
+    line-height: 40px;
+}
+
+.product .icon{ width: 15%;text-align: center;}
+.product .qty{ width: 15%;padding-right: 4px;;text-align: right;}
+.product .name{ width: 70%;white-space: nowrap;overflow: hidden;opacity: .8;}
+
+.product img{
+    max-height: 30px;
+    max-width: 30px;
 }

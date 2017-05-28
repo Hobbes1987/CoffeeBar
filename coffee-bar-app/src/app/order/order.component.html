@@ -1,22 +1,26 @@
 <div class="panel panel-default" [class.panel-info]="order.Status == 1" [class.panel-success]="order.Status == 2" >
   <!-- Default panel contents -->
   <div class="panel-heading">
-    {{order.CustomerName}}
+    # {{order.CustomerName}}
     <span class="btn-close glyphicon glyphicon-trash" aria-hidden="true" (click)="delete()"></span>
   </div>
   <div class="note" *ngIf="order.Note">{{order.Note}}</div>
   <!-- List group -->
   <ul class="list-group scroll" *ngIf="order.Status != 0">
     <li *ngFor="let product of order.Products " class="list-group-item">
-      <span class="badge">{{product.Qty}}</span>
-      {{product.Name}}</li>
+      <div class="product">
+        <div class="icon"><img [src]="product.ImageUrl"></div>
+        <div class="qty">{{product.Qty}}</div>
+        <div class="name">{{product.Name}}</div>
+      </div>
+    </li>
   </ul>
   <div class="panel-footer">
   <div class="row">
     <div *ngIf="!loading" class="col-xs-12" [ngSwitch]="order.Status">
-      <div class="btn btn-block btn-default" *ngSwitchCase="0" (click)="start()" ><span class="glyphicon glyphicon-cutlery"></span> Klaarmaken</div>
-      <div class="btn btn-block btn-info" *ngSwitchCase="1" [class.btn-warning]="order.Delivery" (click)="ready()" ><span class="glyphicon" [class.glyphicon-map-marker]="order.Delivery" [class.glyphicon-ok]="!order.Delivery"></span> {{order.Delivery ? 'Bezorgen!' : 'Klaar'}}</div>
-      <div class="btn btn-block btn-success" *ngSwitchCase="2" (click)="confirm()" ><span class="glyphicon glyphicon-ok"></span> {{order.Delivery ? 'Is gebracht' : 'Afhaling bevestigen'}}</div>
+      <div class="btn btn-lg btn-block btn-default" *ngSwitchCase="0" (click)="start()" ><span class="glyphicon glyphicon-cutlery"></span> Klaarmaken</div>
+      <div class="btn btn-lg btn-block btn-info" *ngSwitchCase="1" [class.btn-warning]="order.Delivery" (click)="ready()" ><span class="glyphicon" [class.glyphicon-map-marker]="order.Delivery" [class.glyphicon-ok]="!order.Delivery"></span> {{order.Delivery ? 'Bezorgen!' : 'Klaar'}}</div>
+      <div class="btn btn-lg btn-block btn-success" *ngSwitchCase="2" (click)="confirm()" ><span class="glyphicon glyphicon-ok"></span> {{order.Delivery ? 'Is gebracht' : 'Afgehaald!'}}</div>
       <span class="delivery" *ngIf="order.Delivery">( moet bezorgd worden )</span>
     </div>
     <div *ngIf="loading" class="alert alert-warning">Laden...</div>

@@ -1,9 +1,9 @@
+import { Product } from './../objects/product';
 import { OrderService } from './../order.service';
 import { getTestBed } from '@angular/core/testing';
 import { ApiService } from './../api.service';
 import { Order, Status } from '../objects/order';
-import { Product } from '../objects/product';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'product-list',
@@ -14,7 +14,9 @@ export class ProductListComponent implements OnInit {
 
   public order:Order; 
   public orders:Order[]; 
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
+  
   constructor(private api:ApiService, private orderService:OrderService) {
 
   }
@@ -95,6 +97,23 @@ export class ProductListComponent implements OnInit {
     return this.orderService.TotalSalesPrice(this.order);
   }
 
+  orderedProducts(product:Product):Product[] {
+    let ordered:Product[] = [];
+    
+    for(let product of this.order.Products){
+      for(let i=0;i<product.Qty;i++)
+        ordered.push(product);
+    }
+    return ordered;
+  }
+
   ngOnInit() {}
+
+  scrollToBottom(): void 
+  {
+      try {
+          this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      } catch(err) { }                 
+  }
 
 }
