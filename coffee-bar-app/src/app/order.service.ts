@@ -49,4 +49,14 @@ export class OrderService {
     }
     return total;
   }
+
+  public ProductInstances(order:Order):Product[]{
+    let ordered:Product[] = [];
+    
+    for(let product of order.Products){
+      for(let i=0;i<product.Qty;i++)
+        ordered.push(product);
+    }
+    return ordered;
+  }
 }

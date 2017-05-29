@@ -1,4 +1,9 @@
 
-  <div *ngFor="let ord of orders" class="postit" [style.margin-left]="ord.Status == 0 ? '-20%' : '0%'" [style.left]="(ord.Column*20) + '%'" [style.top]="(ord.Row*50) + '%'">
-    <order [order]="ord" (orderRemoved)="removeOrder($event)" (orderStarted)="orderStarted($event)" ></order>
+  <div 
+    *ngFor="let order of orders;let i = index" 
+    class="postit" 
+    [style.left]="(order.Status == 0 ? getIndexOfWaiting(order)*5 : (order.Column*20)) + '%'" 
+    [style.top]="(order.Status == 0 ? 80 : (order.Row*50)) + '%'"
+    [style.z-index]="1000-i">
+    <order [order]="order" (orderRemoved)="removeOrder($event)" (orderStarted)="orderStarted($event)" ></order>
   </div>

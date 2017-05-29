@@ -12,6 +12,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 })
 export class ProductListComponent implements OnInit {
 
+  public loading:boolean = false;
   public order:Order; 
   public orders:Order[]; 
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
@@ -23,7 +24,11 @@ export class ProductListComponent implements OnInit {
 
   // New order, button is pressed
   startNewOrder():void{
+    if(this.loading)
+      return;
     
+    this.loading = true;
+
     // create new order and set default status to pending
     this.order = new Order();
     this.order.Status = Status.Pending;
@@ -35,20 +40,29 @@ export class ProductListComponent implements OnInit {
         this.order.Products = products;
         for(let product of products)
           product.Qty = 0;
+        this.loading = false;
       });
   }
 
   // clear everything
   cancelOrder():void{
+    if(this.loading)
+      return;
+
     this.order = null;
   }
 
   // Ordering is finished, button is pressed
   confirmOrder(direct:boolean):void{
+    if(this.loading)
+      return;
 
+    this.loading = true;
     if(direct)
-      if(!confirm('Heb je de bestelling direct meegegeven en hoeft verder niets worden klaargemaakt?'))
+      if(!confirm('Heb je de bestelling direct meegegeven en hoeft verder niets worden klaargemaakt?')) {
+        this.loading = false;
         return;
+      }
       else
         this.order.Status = Status.Delivered;
 
@@ -61,8 +75,9 @@ export class ProductListComponent implements OnInit {
 
     // if no products remaing then do nothing
     // we don't want to place an empty order
-    if( this.order.Products.length == 0){
+    if( this.order.Products.length == 0) {
       this.order = null;
+      this.loading = false;
       return;
     }
 
@@ -70,23 +85,32 @@ export class ProductListComponent implements OnInit {
       // send the order to the api
       this.api.UpdateOrder(this.order).subscribe(()=>{
         this.order = null;
+        this.loading = false;
       });
     }
     else {
       // send the order to the api
+      this.order.OrderDate = new Date();
       this.api.PlaceOrder(this.order).subscribe(()=>{
         this.order = null;
+        this.loading = false;
       });
     }
   }
 
   // +1 of a product
   addProduct(product:Product):void{
+    if(this.loading)
+      return;
+
     product.Qty = product.Qty+1;
   }
 
   // -1 of a product
   subtractProduct(product:Product):void {
+    if(this.loading)
+      return;
+
     if(product.Qty > 0){
       product.Qty = product.Qty-1;
     }
@@ -97,14 +121,12 @@ export class ProductListComponent implements OnInit {
     return this.orderService.TotalSalesPrice(this.order);
   }
 
-  orderedProducts(product:Product):Product[] {
-    let ordered:Product[] = [];
-    
-    for(let product of this.order.Products){
-      for(let i=0;i<product.Qty;i++)
-        ordered.push(product);
-    }
-    return ordered;
+  orderedProducts():Product[] {
+    return this.orderService.ProductInstances(this.order);
+  }
+
+  stockProducts():Product[]{
+    return this.order.Products.filter(p=>!p.OutOfStock);
   }
 
   ngOnInit() {}

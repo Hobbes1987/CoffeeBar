@@ -24,7 +24,7 @@ export class OrderScreenComponent implements OnInit {
 
 getOrders(){
  this.api.GetPendingOrders().subscribe((result)=>{
-      result.reverse();
+      
       this.orders = result;
       this.grid = [];
      for(let y=0;y<2;y++){
@@ -65,11 +65,21 @@ getOrders(){
     }
     this.api.UpdateOrder(order).subscribe(()=>{});
   }
+
+  getIndexOfWaiting(order:Order){    
+    let ix = 0;
+    for(let o of this.orders){
+        if(o == order && order.Status == Status.Pending)
+          return ix;
+        else if (o.Status == Status.Pending)
+          ix++;
+    }
+  }
   
 
   findFreeSpot():GridItem{
     let filteredItems = this.grid.filter((gridItem)=>{
-      return gridItem.order == null && this.grid.indexOf(gridItem) != this.grid.length-1;
+      return gridItem.order == null && this.grid.indexOf(gridItem) < 5;
     });
 
     if(filteredItems.length == 0){

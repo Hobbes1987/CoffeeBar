@@ -10,10 +10,14 @@ td{
 .qty{width:25px;padding-left:0px !important;}
 
 .total{
-    font-size: 1.7em;
+    font-size: 2em;
+    position: absolute;
+    top:0px;
+    right:10px;
 }
 
 .product{
+    cursor: pointer;
     min-height:85px;
     display: flex;
     flex-direction: row;
@@ -49,7 +53,11 @@ img{
     max-height:50px;
     max-width:50px;
 }
-.order{margin-bottom: 4px;}
+.order{
+    margin-bottom: 4px;
+    height:50px;
+    border-bottom: solid 1px rgba(0,0,0,.2);    
+}
 .order img {
     max-height:25px;
     max-width:25px;

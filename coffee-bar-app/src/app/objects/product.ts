@@ -5,4 +5,5 @@ export class Product {
     public Category:string;
     public ImageUrl:string;
     public Qty:number;
+    public OutOfStock:boolean;
 }

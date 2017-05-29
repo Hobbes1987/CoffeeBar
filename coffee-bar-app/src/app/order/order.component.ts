@@ -52,15 +52,15 @@ this.order.Status=Status.Delivered;
 
 delete(){
   if(this.loading)return;
-  this.loading = true;
-  if(confirm("Wil je deze bestelling echt verwijderen?")){
+  if(confirm("Wil je deze bestelling echt verwijderen?")) {
+    this.loading = true;
     var oldStatus = this.order.Status;
-  this.order.Status = Status.Cancelled;
-  this.api.UpdateOrder(this.order).subscribe(()=>{
-    this.orderRemoved.emit(this.order);
-    },function(){
-      this.order.Status = oldStatus;
-    },()=>this.loading = false);
+    this.order.Status = Status.Cancelled;
+    this.api.UpdateOrder(this.order).subscribe(()=>{
+      this.orderRemoved.emit(this.order);
+      },function(){
+        this.order.Status = oldStatus;
+      },()=>this.loading = false);
   }
 }
 

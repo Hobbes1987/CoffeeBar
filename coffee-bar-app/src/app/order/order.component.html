@@ -3,6 +3,9 @@
   <div class="panel-heading">
     # {{order.CustomerName}}
     <span class="btn-close glyphicon glyphicon-trash" aria-hidden="true" (click)="delete()"></span>
+    <div class="order-number" *ngIf="order.Status == 0">
+      {{order.CustomerName}}
+    </div>
   </div>
   <div class="note" *ngIf="order.Note">{{order.Note}}</div>
   <!-- List group -->
@@ -16,6 +19,7 @@
     </li>
   </ul>
   <div class="panel-footer">
+    <div style="margin-bottom:5px;" *ngIf="order.Status != 0">{{order.Status | statusName}}</div>
   <div class="row">
     <div *ngIf="!loading" class="col-xs-12" [ngSwitch]="order.Status">
       <div class="btn btn-lg btn-block btn-default" *ngSwitchCase="0" (click)="start()" ><span class="glyphicon glyphicon-cutlery"></span> Klaarmaken</div>

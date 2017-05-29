@@ -5,6 +5,7 @@
 
 .panel-heading{
     font-size: 2em;
+    position: relative;
 }
 .panel-success .panel-footer, .panel-success .note{
     background-color: #dff0d8;
@@ -55,4 +56,12 @@ font-size: .5em;
 .product img{
     max-height: 30px;
     max-width: 30px;
+}
+
+.order-number{
+    position: absolute;
+    bottom:5px;
+    right:5px;
+    font-size: .7em;
+    color:black;
 }

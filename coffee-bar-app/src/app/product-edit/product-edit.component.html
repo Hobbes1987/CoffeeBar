@@ -2,18 +2,21 @@
   <tr>
     <th>Productnaam</th>
     <th>Verkoopprijs</th>
+    <th>Image Url</th>
+    <th>Uitverkocht</th>
     <th></th>
   </tr>
   <tr *ngFor="let product of products">
     <td><input class="form-control" type="text" [(ngModel)]="product.Name"/></td>
     <td><input class="form-control" type="text" [(ngModel)]="product.Price"/></td>
     <td><input class="form-control" type="text" [(ngModel)]="product.ImageUrl"/></td>
+    <td><input class="form-control" type="checkbox" [(ngModel)]="product.OutOfStock"/></td>
     <td align="left">
       <div class="btn btn-primary" (click)="save(product)">Opslaan</div>        
       <div class="btn btn-danger" (click)="delete(product)">Verwijderen</div>        
     </td>
   </tr>
   <tr>
-    <td colspan="3" align="left"><div class="btn btn-success" (click)="add()">Toevoegen+</div></td>
+    <td colspan="5" align="left"><div class="btn btn-success" (click)="add()">Toevoegen+</div></td>
   </tr>
 </table>
