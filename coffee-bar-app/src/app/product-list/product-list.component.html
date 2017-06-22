@@ -5,60 +5,48 @@
 <section *ngIf="order != null">
     
     <div class="total"><strong>{{totalPrice() | currency:'EUR':true:'1.2-2'}}</strong></div>
-    <div class="order" *ngIf="order.Products">
+    <div class="order" *ngIf="order.Products && !ordering">
       <div class="item" *ngFor="let product of orderedProducts()" (click)="subtractProduct(product)">
         <img [src]="product.ImageUrl">
       </div>  
+      <i class="fa fa-plus-circle fa-2x" (click)="ordering = !ordering"></i>
     </div>
 
-    <div class="row" *ngIf="order.Products">
+    <div class="row" *ngIf="order.Products && ordering">
       <div class="col-xs-4 product" *ngFor="let product of stockProducts()" (click)="addProduct(product)">
         <div *ngIf="product.Qty > 0" class="product-qty">{{product.Qty}}</div>
-        <div class="row">
-          <div class="col-xs-12 product-image" *ngIf="product.ImageUrl"><img [src]="product.ImageUrl"></div>
-          <div class="col-xs-12 product-name">{{product.Name}}</div>
-          <div class="col-xs-12 product-price">{{product.Price | currency:'EUR':true:'1.2-2'}}</div>
+        <div>
+          <div class=" product-image" *ngIf="product.ImageUrl"><img [src]="product.ImageUrl"></div>
+          <div class=" product-name">{{product.Name}}</div>
+          <div class=" product-price">{{product.Price | currency:'EUR':true:'1.2-2'}}</div>
         </div>
       </div>
     </div>
-    <hr>
-
-    <div class="row">
-      <div class="col-xs-6">
-        <div class="checkbox">
-          <label>
-            <input [(ngModel)]="order.Delivery" type="checkbox"> Bezorgen
-          </label>
-        </div>
-      </div>
-      <div class="col-xs-6">
+    
+    <button  *ngIf="ordering" [disabled]="totalPrice()==0" class="ordering btn btn-lg btn-success" (click)="ordering = !ordering">Verder</button>      
+    
+    <section *ngIf="!ordering">
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1">#</span>
           <input [(ngModel)]="order.CustomerName" type="tel" class="form-control" id="customer" placeholder="#best.nr." (keyup.enter)="confirmOrder(false)" aria-describedby="basic-addon1">
         </div>
+      <div style="margin-top:10px;" class="input-group m1">
+        <span class="input-group-addon" id="basic-addon2">!</span>
+        <input [(ngModel)]="order.Note" type="text" class="form-control" id="note" placeholder="opmerking"  aria-describedby="basic-addon2">
       </div>
-    </div>
+        <div style="margin-top:10px;" class="checkbox">
+          <label>
+            <input [(ngModel)]="order.Delivery" type="checkbox"> Bezorgen
+          </label>
+        </div>
+      <button style="margin-top:10px;" [disabled]="totalPrice()==0" class="btn btn-default btn-block" (click)="confirmOrder(true)">Snelle bestelling</button>      
+      <div style="margin-top:10px;" class="btn btn-danger btn-lg btn-block" (click)="cancelOrder()">Annuleren</div>
 
-  <div class="row">
-    <div class="col-xs-6">
-      <div class="btn btn-danger btn-lg btn-block" (click)="cancelOrder()">Annuleren</div>
-    </div>
-    <div class="col-xs-6">
-      <button class="btn btn-success btn-lg btn-block" [disabled]="order.CustomerName==null || order.CustomerName == ''" (click)="confirmOrder(false)">
+      <button style="margin-top:10px;" class="btn btn-success btn-lg btn-block" [disabled]="order.CustomerName==null || order.CustomerName == ''" (click)="confirmOrder(false)">
         <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
         Bestellen!</button>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-xs-12">
-      <button style="margin-top:10px;" [disabled]="totalPrice()==0" class="btn btn-default btn-block" (click)="confirmOrder(true)">Snelle bestelling</button>      
-    </div>
-  </div>
 
-  <div class="input-group m1">
-    <span class="input-group-addon" id="basic-addon2">!</span>
-    <input [(ngModel)]="order.Note" type="text" class="form-control" id="note" placeholder="opmerking"  aria-describedby="basic-addon2">
-  </div>
 
+    </section>
 </section>

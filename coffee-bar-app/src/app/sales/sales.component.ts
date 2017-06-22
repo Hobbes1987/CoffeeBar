@@ -11,11 +11,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SalesComponent implements OnInit {
 
-  products:Product[];
-  orders:Order[];
+  public sellingDayName:string;
+  public products:Product[];
+  public orders:Order[];
+
   constructor(private api:ApiService, private orderService:OrderService) { }
 
   ngOnInit() {
+    this.getData();
+  }
+
+  getData():void{
     this.api.GetOrders().subscribe((result)=>{
       this.orders = result.filter((order)=>{return order.Status == Status.Delivered});
       this.products = [];
@@ -23,8 +29,9 @@ export class SalesComponent implements OnInit {
         this.products = this.products.concat(order.Products);
       }
     });
-  }
 
+    this.api.GetSellingDay().subscribe(x=> this.sellingDayName = x);
+  }
   // sum the price of all ordered products
   totalPrice(order:Order):Number {
     return this.orderService.TotalSalesPrice(order);
@@ -40,6 +47,13 @@ export class SalesComponent implements OnInit {
 
   totalPricePerProduct(products:Product[]):number{
     return this.orderService.TotalSalesPriceProducts(products);
+  }
+
+  changeDay():void{
+    if(confirm('Wil je de verkoopdag veranderen?\n\nHet hele systeem zal dan op die database verder werken!'))
+      {
+        this.api.SetSellingDay(this.sellingDayName).subscribe(x=>this.getData());
+      }
   }
 
 }

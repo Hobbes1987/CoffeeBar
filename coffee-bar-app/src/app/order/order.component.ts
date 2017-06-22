@@ -10,6 +10,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@ang
 export class OrderComponent implements OnInit {
 
 loading:boolean = false;
+@Input() public index:number;
 @Input() public order:Order;
 @Output() public orderRemoved:EventEmitter<Order> = new EventEmitter();
 @Output() public orderStarted:EventEmitter<Order> = new EventEmitter();

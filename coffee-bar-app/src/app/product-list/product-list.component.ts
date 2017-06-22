@@ -13,6 +13,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 export class ProductListComponent implements OnInit {
 
   public loading:boolean = false;
+  public ordering:boolean = true;
+
   public order:Order; 
   public orders:Order[]; 
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
@@ -32,7 +34,7 @@ export class ProductListComponent implements OnInit {
     // create new order and set default status to pending
     this.order = new Order();
     this.order.Status = Status.Pending;
-
+    
     // get all the available products from the api
     this.api.GetProducts().subscribe(
       (products)=> {
@@ -41,6 +43,7 @@ export class ProductListComponent implements OnInit {
         for(let product of products)
           product.Qty = 0;
         this.loading = false;
+        this.ordering = true;
       });
   }
 
@@ -59,7 +62,7 @@ export class ProductListComponent implements OnInit {
 
     this.loading = true;
     if(direct)
-      if(!confirm('Heb je de bestelling direct meegegeven en hoeft verder niets worden klaargemaakt?')) {
+      if(!confirm('Heb je de bestelling direct meegegeven?')) {
         this.loading = false;
         return;
       }

@@ -5,5 +5,5 @@
     [style.left]="(order.Status == 0 ? getIndexOfWaiting(order)*5 : (order.Column*20)) + '%'" 
     [style.top]="(order.Status == 0 ? 80 : (order.Row*50)) + '%'"
     [style.z-index]="1000-i">
-    <order [order]="order" (orderRemoved)="removeOrder($event)" (orderStarted)="orderStarted($event)" ></order>
+    <order [order]="order" [index]="i" (orderRemoved)="removeOrder($event)" (orderStarted)="orderStarted($event)" ></order>
   </div>

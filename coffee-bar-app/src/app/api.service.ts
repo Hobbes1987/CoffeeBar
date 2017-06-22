@@ -11,8 +11,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ApiService {
 
-  rootUrl:string = "http://localhost:3000/api/";
-  //rootUrl:string = "../../api/";
+  //rootUrl:string = "http://localhost:3000/api/";
+  rootUrl:string = "../../api/";
 
   GetProducts() : Observable<Product[]> {
       return this.http.get(this.rootUrl + "products")
@@ -46,12 +46,25 @@ export class ApiService {
       return this.http.post(this.rootUrl + "product",product)
                       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
-   UpdateProduct(product:Product) : Observable<any> {
+
+  UpdateProduct(product:Product) : Observable<any> {
       return this.http.post(this.rootUrl + "product/"+product._id,product)
                       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
+
   DeleteProduct(product:Product) : Observable<any> {
       return this.http.post(this.rootUrl + "product/delete/"+product._id,product)
+                      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  GetSellingDay() : Observable<string> {
+      return this.http.get(this.rootUrl + "getSellingDay")
+                      .map((res:Response) => res.text())
+                      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  SetSellingDay(name:string) : Observable<any> {
+      return this.http.get(this.rootUrl + "setSellingDay/"+name)
                       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
      

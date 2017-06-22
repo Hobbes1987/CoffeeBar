@@ -18,11 +18,7 @@ td{
 
 .product{
     cursor: pointer;
-    min-height:85px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
+    min-height:92px;
 }
 
 .product-qty{
@@ -78,3 +74,12 @@ img{
 .m1{
     margin:4px 0px;
 }
+
+.ordering{
+    position: fixed;
+    bottom: 10px;
+    left:10px;
+    right:25px;
+    z-index: 10;
+}
+.fa-plus-circle{color:green;display: inline-block;}

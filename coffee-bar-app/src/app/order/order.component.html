@@ -7,7 +7,7 @@
       {{order.CustomerName}}
     </div>
   </div>
-  <div class="note" *ngIf="order.Note">{{order.Note}}</div>
+  <div class="note" *ngIf="order.Note && order.Status != 0">{{order.Note}}</div>
   <!-- List group -->
   <ul class="list-group scroll" *ngIf="order.Status != 0">
     <li *ngFor="let product of order.Products " class="list-group-item">
